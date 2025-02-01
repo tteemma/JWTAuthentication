@@ -1,3 +1,5 @@
+# ![JWT Authentication](https://user-images.githubusercontent.com/74038190/212284094-e50ceae2-de86-4dd6-9f9c-a3ebcb3ede9e.gif)
+
 # JWT Authentication with Spring Boot
 
 This project demonstrates how to implement JWT authentication in a Spring Boot application. It provides endpoints for user registration and login, and uses JSON Web Tokens (JWT) for stateless authentication.
