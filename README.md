@@ -1,132 +1,137 @@
-JWT Authentication with Spring Boot
-This project demonstrates a simple JWT authentication system using Spring Boot. It provides endpoints for user registration and login, utilizing JSON Web Tokens (JWT) for stateless authentication.
+# JWT Authentication with Spring Boot
 
-Features
-User Registration: Users can register with a username and password.
-User Login: Users can log in and receive a JWT token.
-JWT Authentication: JWT is used for securing the API, with token validation for subsequent requests.
-Role-Based Access: Users are assigned roles and can have different levels of access.
-Technologies Used
-Spring Boot: The main framework used for building the RESTful API.
-Spring Security: Provides authentication and authorization.
-JWT (JSON Web Token): For secure, stateless authentication.
-H2 Database: In-memory database for storing users and roles (can be replaced with any database like MySQL, PostgreSQL).
-Lombok: For reducing boilerplate code in DTOs and models.
-Setup
-Prerequisites
-Java 17 or higher
-Maven or Gradle
-An IDE like IntelliJ IDEA or Eclipse
-Installation
-Clone the repository:
+This project demonstrates how to implement JWT authentication in a Spring Boot application. It provides endpoints for user registration and login, and uses JSON Web Tokens (JWT) for stateless authentication.
 
-bash
-Копировать
-Редактировать
-git clone https://github.com/yourusername/jwtauthentication.git
-cd jwtauthentication
-Install dependencies:
+## Features
 
-If using Maven:
+- **User Registration**: Register a user with a username and password.
+- **User Login**: Log in and receive a JWT token for authentication.
+- **JWT Authentication**: Use JWT tokens to secure API requests and manage user sessions.
+- **Role-Based Access Control**: Assign roles to users for controlled access to different endpoints.
 
-bash
-Копировать
-Редактировать
-mvn clean install
-If using Gradle:
+## Technologies Used
 
-bash
-Копировать
-Редактировать
-gradle build
-Run the application:
+- **Spring Boot**: A Java-based framework for building the RESTful API.
+- **Spring Security**: Handles authentication and authorization within the app.
+- **JWT (JSON Web Token)**: Used for secure, stateless user authentication.
+- **H2 Database** (optional): An in-memory database for storing users and roles (can be replaced with MySQL, PostgreSQL, etc.).
+- **Lombok**: A Java library to reduce boilerplate code (e.g., getter/setter methods).
 
-bash
-Копировать
-Редактировать
-mvn spring-boot:run
-Or if using Gradle:
+## Setup
 
-bash
-Копировать
-Редактировать
-gradle bootRun
-The application will run on http://localhost:8080.
+### Prerequisites
 
-API Endpoints
-Register a User
-Endpoint: /api/v1/auth/register
+Before setting up the project, make sure you have the following installed:
 
-Method: POST
+- Java 17 or higher
+- Maven or Gradle
+- An IDE (e.g., IntelliJ IDEA, Eclipse)
 
-Request Body:
+### Installation
 
-json
-Копировать
-Редактировать
-{
-  "username": "user1",
-  "password": "password123"
-}
-Response:
+1. **Clone the repository**:
 
-json
-Копировать
-Редактировать
-{
-  "message": "User successfully registered!"
-}
-Login and Get JWT Token
-Endpoint: /api/v1/auth/login
+    ```bash
+    git clone https://github.com/tteemma/jwtauthentication.git
+    cd jwtauthentication
+    ```
 
-Method: POST
+2. **Install dependencies**:
 
-Request Body:
+    If you're using Maven:
 
-json
-Копировать
-Редактировать
-{
-  "username": "user1",
-  "password": "password123"
-}
-Response:
+    ```bash
+    mvn clean install
+    ```
 
-json
-Копировать
-Редактировать
-{
-  "accessToken": "your-jwt-token-here",
-  "tokenType": "Bearer "
-}
-Protected Endpoint (Requires Authentication)
-Endpoint: /api/v1/protected
+    Or if you're using Gradle:
 
-Method: GET
+    ```bash
+    gradle build
+    ```
 
-Headers: Authorization: Bearer <your-jwt-token>
+3. **Run the application**:
 
-Response:
+    To run the application with Maven:
 
-json
-Копировать
-Редактировать
-{
-  "message": "Access granted!"
-}
-Security
-JWT tokens are used to authenticate users and protect the API. Upon login, a JWT token is generated and returned to the user. This token must be sent in the Authorization header for subsequent requests to protected endpoints.
+    ```bash
+    mvn spring-boot:run
+    ```
 
-Role Management
-Roles: Users are assigned the role USER by default during registration.
-You can customize roles by modifying the RoleRepository and adding more roles as needed.
-Configuration
-The JWT expiration time and secret key can be configured in the Constants class:
+    Or with Gradle:
 
-java
-Копировать
-Редактировать
-public static final long JWT_EXPIRATION = 86400; // 1 day
-public static final String JWT_SECRET = "jwt_secret";
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+    ```bash
+    gradle bootRun
+    ```
+
+    By default, the application will be running on `http://localhost:8080`.
+
+## API Endpoints
+
+### 1. Register a User
+
+- **Endpoint**: `/api/v1/auth/register`
+- **Method**: `POST`
+- **Request Body**:
+
+    ```json
+    {
+      "username": "user1",
+      "password": "password123"
+    }
+    ```
+
+- **Response**:
+
+    ```json
+    {
+      "message": "User successfully registered!"
+    }
+    ```
+
+### 2. Login and Get JWT Token
+
+- **Endpoint**: `/api/v1/auth/login`
+- **Method**: `POST`
+- **Request Body**:
+
+    ```json
+    {
+      "username": "user1",
+      "password": "password123"
+    }
+    ```
+
+- **Response**:
+
+    ```json
+    {
+      "accessToken": "your-jwt-token-here",
+      "tokenType": "Bearer "
+    }
+    ```
+
+### 3. Access Protected Resource (Requires Authentication)
+
+- **Endpoint**: `/api/v1/protected`
+- **Method**: `GET`
+- **Headers**: `Authorization: Bearer <your-jwt-token>`
+
+- **Response**:
+
+    ```json
+    {
+      "message": "Access granted!"
+    }
+    ```
+
+## Security
+
+JWT (JSON Web Token) is used for user authentication and authorization. After a successful login, a JWT token is returned. This token must be included in the `Authorization` header as `Bearer <token>` for all subsequent requests to protected endpoints.
+
+### Example Request with JWT
+
+To access protected resources, include the JWT token in the `Authorization` header as follows:
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/protected" -H "Authorization: Bearer <your-jwt-token>"
