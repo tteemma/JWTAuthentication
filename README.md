@@ -23,7 +23,7 @@ Clone the repository:
 bash
 Копировать
 Редактировать
-git clone https://github.com/tteemma/jwtauthentication.git
+git clone https://github.com/yourusername/jwtauthentication.git
 cd jwtauthentication
 Install dependencies:
 
@@ -120,3 +120,13 @@ JWT tokens are used to authenticate users and protect the API. Upon login, a JWT
 Role Management
 Roles: Users are assigned the role USER by default during registration.
 You can customize roles by modifying the RoleRepository and adding more roles as needed.
+Configuration
+The JWT expiration time and secret key can be configured in the Constants class:
+
+java
+Копировать
+Редактировать
+public static final long JWT_EXPIRATION = 86400; // 1 day
+public static final String JWT_SECRET = "jwt_secret";
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
